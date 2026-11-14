@@ -1,0 +1,53 @@
+# Configuration for train_kagome.py (parsed by config.py).
+# Every entry can be overridden from the command line, e.g.
+#   python train_kagome.py --lattice.L 6 --optimizer.eta 1e-3
+# or replaced by another file with --config other.yaml
+
+seed: 20
+device: gpu                  # 'cpu' forces jax onto the CPU
+
+wandb:
+  log: true
+  entity: null               # W&B user or team, null for your default
+  project: kagome_vit
+  name: ''                   # appended to the automatic run name
+  mode: offline              # offline saves locally, online uploads during the run
+
+checkpoint:
+  input: ''                  # checkpoint folder to resume from
+  every: 200                 # save a checkpoint every this many steps
+  keep: 1                    # number of checkpoints kept
+
+lattice:
+  L: 4                       # linear size L in unit cells, 3 x L x L sites
+
+hamiltonian:
+  J: 1.0                     # nearest-neighbour Heisenberg coupling
+  sz: 0                      # total magnetization sector
+
+transformer:
+  num_layers: 8              # number of transformer encoder blocks
+  heads: 12                  # attention heads per encoder block
+  f: 6                       # d_model = f*heads
+  b: 1                       # patch size (in unit cells per linear dimension)
+  transl_invariant: true
+  spatial_attention: true
+  use_phase: true            # true multiplies the ViT output with the phase of the classical coplanar q=0 state
+  real_projection: true      # enforce time-reversal-symmetric wave function
+  s_flip: 0                  # enforce spin-inversion-symmetric wave function: 0 (off), 1 (even) or -1 (odd); nonzero requires sz == 0
+
+vmc:
+  N_mc: 16384                # number of Monte Carlo samples
+  nsweeps: 1
+  d_max: 2                   # max distance for bond-exchange moves
+  nbands: 1
+
+optimizer:
+  N_opt: 10000               # number of optimization steps
+  eta: 5.0e-3                # initial learning rate
+  eta_final: 5.0e-4          # final learning rate (uses cosine decay)
+  diag_shift: 1.0e-4
+  momentum: 0.95
+  beta: 0.995
+  nbatches: 1
+  mode: real                 # MARCH mode, real or complex
