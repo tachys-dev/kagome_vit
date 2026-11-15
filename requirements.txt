@@ -2,9 +2,3 @@
 #
 # For CUDA 13 drivers replace cuda12 by cuda13 in the first line, without a GPU remove cuda12 from it.
 tachys[cuda12,wandb]==0.1.7
-jax==0.11.2
-flax==0.12.10
-numpy==2.3.3
-einops==0.8.1
-jsonargparse==4.41.0
-wandb==0.27.0
