@@ -12,11 +12,13 @@ The code is built on [`jax`](https://github.com/jax-ml/jax), [`flax`](https://gi
 
 ## Usage
 
-The dependencies are listed in `requirements.txt` (Python 3.12 or newer):
+Install `tachys` (Python 3.12 or newer):
 
 ```bash
-pip install -r requirements.txt
+pip install "tachys[cuda12,wandb]==0.1.7"
 ```
+
+For CUDA 13 drivers replace `cuda12` by `cuda13`.
 
 The simulation is configured in `vmc_config.yaml`, and every option can also be overridden from the command line. A short test run:
 

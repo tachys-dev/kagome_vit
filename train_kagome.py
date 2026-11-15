@@ -67,10 +67,9 @@ def apply_fn(p, s):
     return vit_module.apply(p, s.spins.astype(jnp.float64))
 
 
-wf=WaveFunction(params=params, apply_fn=apply_fn, dtype=jnp.float64)
+wf=WaveFunction(params=params, apply_fn=apply_fn)
 
-optimizer=MARCH(diag_shift=cfg.optimizer.diag_shift, mode=cfg.optimizer.mode, mu=cfg.optimizer.momentum, beta=cfg.optimizer.beta,
-                nbatches=cfg.optimizer.nbatches)
+optimizer=MARCH(diag_shift=cfg.optimizer.diag_shift, mode=cfg.optimizer.mode, mu=cfg.optimizer.momentum, beta=cfg.optimizer.beta)
 
 opt_state, start_step=None, 0
 if cfg.checkpoint.input:

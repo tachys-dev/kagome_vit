@@ -49,7 +49,6 @@ parser.add_argument('--optimizer.eta_final', type=float)
 parser.add_argument('--optimizer.diag_shift', type=float)
 parser.add_argument('--optimizer.momentum', type=float)
 parser.add_argument('--optimizer.beta', type=float)
-parser.add_argument('--optimizer.nbatches', type=int)
 parser.add_argument('--optimizer.mode', type=str)
 
 cfg=parser.parse_args()
