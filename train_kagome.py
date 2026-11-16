@@ -60,14 +60,10 @@ vit_module=ViT_phase(num_layers=cfg.transformer.num_layers, d_model=cfg.transfor
 if cfg.transformer.s_flip:
     vit_module=SpinFlipExpSum(module=vit_module, s_flip=cfg.transformer.s_flip)
 
-params=vit_module.init(key_for_model_params, initial_spins[:1].astype(jnp.float64))
+params=vit_module.init(key_for_model_params, state.replace(spins=state.spins[:1]))
 
 
-def apply_fn(p, s):
-    return vit_module.apply(p, s.spins.astype(jnp.float64))
-
-
-wf=WaveFunction(params=params, apply_fn=apply_fn)
+wf=WaveFunction(params=params, apply_fn=vit_module.apply)
 
 optimizer=MARCH(diag_shift=cfg.optimizer.diag_shift, mode=cfg.optimizer.mode, mu=cfg.optimizer.momentum, beta=cfg.optimizer.beta)
 

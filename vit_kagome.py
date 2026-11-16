@@ -275,8 +275,8 @@ class ViT_phase(nn.Module):
 
     @nn.remat
     @nn.compact
-    def __call__(self, spins):
-        spins_2d=jnp.atleast_2d(spins)
+    def __call__(self, state):
+        spins_2d=jnp.atleast_2d(state.spins)
 
         Ns=spins_2d.shape[-1]
         n_unit_cells=Ns//3
@@ -307,14 +307,13 @@ class SpinFlipExpSum(nn.Module):
     s_flip: int=1
 
     @nn.compact
-    def __call__(self, spins):
+    def __call__(self, state):
         if self.s_flip==1:
             phase=0.0
         elif self.s_flip==-1:
             phase=1.0j*jnp.pi
         else:
             raise ValueError("SpinFlipExpSum requires s_flip=1 or -1")
-        spins=jnp.atleast_2d(spins)
-        logpsi=self.module(spins)
-        logpsi_flip=self.module(-spins)
+        logpsi=self.module(state)
+        logpsi_flip=self.module(state.replace(spins=-state.spins))
         return jnp.logaddexp(logpsi, logpsi_flip+phase) - jnp.log(2.0)
