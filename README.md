@@ -1,6 +1,6 @@
 # Vision Transformer wave functions for the kagome Heisenberg antiferromagnet
 
-This repository contains the code for the paper [*Gapless Nature of Spin Liquid in the S=1/2 Kagome Heisenberg Antiferromagnet with Neural-Network Quantum States*](https://arxiv.org/abs/XXXX.XXXXX). It trains variational ground states of the spin-1/2 Heisenberg antiferromagnet on the kagome lattice with a Vision Transformer (ViT) wave function.
+This repository contains the code for the paper [*Gapless Nature of Spin Liquid in the S=1/2 Kagome Heisenberg Antiferromagnet with Neural-Network Quantum States*](https://arxiv.org/abs/2611.18840). It trains variational ground states of the spin-1/2 Heisenberg antiferromagnet on the kagome lattice with a Vision Transformer (ViT) wave function.
 
 The code is built on [`jax`](https://github.com/jax-ml/jax), [`flax`](https://github.com/google/flax) and [`tachys`](https://tachys.org).
 
@@ -38,3 +38,7 @@ Runs are logged with [Weights & Biases](https://wandb.ai) in offline mode. Each 
 - `history.json`, the energy per site, variance per site, V-score, acceptance and learning rate of every step, written at the end of the run
 
 A run can be uploaded later with `wandb sync wandb/offline-run-<date>-<id>`, or logged live with `--wandb.mode=online`. With `--no_wandb.log` no checkpoints are written and `history.json` goes to the current folder.
+
+## License
+
+This code is released under the [Apache License 2.0](LICENSE).
